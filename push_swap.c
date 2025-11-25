@@ -26,13 +26,16 @@ void	push_all_to_b(t_stack **a, t_stack **b, int len)
 // median flag 0 means first half, 1 means later half
 void assign_pos(t_stack *b)
 {
+	t_stack	*last;
 	int	i;
 	int	median;
 	int	flag;
 // if even number, might get last 2 pos being number 2
+// currently the only issue stems from this calculating the very last node's value wrong, it should ALWAYS be 1
 	i = 0;
 	median = lstlen(b) / 2;
 	flag = 1;
+	last = b;
 	while (b)
 	{
 		if (i > median)
@@ -51,6 +54,9 @@ void assign_pos(t_stack *b)
 		}
 		b = b->next;
 	}
+	while (last->next)
+		last = last->next;
+	last->pos = 1;
 }
 
 void assign_target(t_stack *a, t_stack *b)
@@ -83,8 +89,6 @@ t_stack	*find_cheapest(t_stack *b)
 	cheapest = b;
 	while (b->next)
 	{
-		// in order to start implementing this
-		// go to push_swap.h and add int pos
 		if (b->target)
 		{
 			if (cheapest->target)
@@ -108,10 +112,6 @@ t_stack	*find_cheapest(t_stack *b)
 					cheapest = b;
 		}
 		b = b->next;
-		// then come here and find assign_target(a, b
-		// the smallest b->pos + b->target->pos possible
-		// make sure to check if b->target->pos exists while doing this
-		// and return it
 	}
 	return (cheapest);
 }
@@ -153,9 +153,9 @@ void	greater_sort(t_stack *a)
 		ll_printer(b, 'b');
 		find_cheapest_and_moveto_top(a, b);
 		pa(&a, &b);
+		ll_printer(a, 'a');
+		ll_printer(b, 'b');
 	}
-	ll_printer(a, 'a');
-	ll_printer(b, 'b');
 }
 
 int	push_swap(t_stack *a)
