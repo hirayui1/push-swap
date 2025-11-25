@@ -6,6 +6,8 @@
 typedef struct	s_stack {
 	struct s_stack	*next;
 	struct s_stack	*target;
+	int	median_flag;
+	int	pos;
 	int	x;
 }		t_stack;
 

@@ -10,7 +10,7 @@ void    ll_printer(t_stack *next, char c)
 			target_val = next->target->x;
 		else
 			target_val = -1;
-                printf("%d -> target: %d\n", next->x, target_val);
+                printf("%d -> target: %d, pos: %d, med_flag: %d\n", next->x, target_val, next->pos, next->median_flag);
                 next = next->next;
         }
 }
@@ -21,6 +21,35 @@ void	push_all_to_b(t_stack **a, t_stack **b, int len)
 	//printf("len: %d\n", len);
 	while (len-- > 3)
 		pb(b, a);
+}
+
+void assign_pos(t_stack *b)
+{
+	int	i;
+	int	median;
+	int	flag;
+
+	i = 0;
+	median = lstlen(b) / 2;
+	flag = 1;
+	while (b)
+	{
+		if (i > median)
+			flag = 0;
+		if (flag)
+		{
+			b->median_flag = 0;
+			b->pos = i;
+			i++;
+		}
+		else
+		{
+			b->median_flag = 1;
+			i--;
+			b->pos = i;
+		}
+		b = b->next;
+	}
 }
 
 void assign_target(t_stack *a, t_stack *b)
@@ -53,30 +82,56 @@ t_stack	*find_cheapest(t_stack *b)
 	{
 		// in order to start implementing this
 		// go to push_swap.h and add int pos
-		//
+		if (b->target)
+		{
+			if (cheapest->target)
+			{
+				if (b->pos + b->target->pos < cheapest->pos + cheapest->target->pos)
+					cheapest = b;
+			}
+			else
+				if (b->pos + b->target->pos < cheapest->pos)
+					cheapest = b;
+		}
+		else
+		{
+			if (cheapest->target)
+			{
+				if (b->pos < cheapest->pos + cheapest->target->pos)
+					cheapest = b;
+			}
+			else
+				if (b->pos < cheapest->pos)
+					cheapest = b;
+		}
+		b = b->next;
 		// then come here and find 
 		// the smallest b->pos + b->target->pos possible
 		// make sure to check if b->target->pos exists while doing this
 		// and return it
 	}
+	return (b);
 }
 
 void	find_cheapest_and_moveto_top(t_stack *a, t_stack *b)
 {
 	t_stack	*b_node;
-
 	b_node = find_cheapest(b);
+	printf("ugh, %d, cheapest is %d and its target %d\n", a->x, b_node->x, b_node->target->x);
+
 }
 
 void	greater_sort(t_stack *a)
 {
 	t_stack *b = 0;
 	push_all_to_b(&a, &b, lstlen(a));
-	while (lstlen(b) > 1)
-	{
+	//while (lstlen(b) > 1)
+	//{
+		assign_pos(a);
+		assign_pos(b);
 		assign_target(a, b);
 		find_cheapest_and_moveto_top(a, b);
-	}
+	//}
 	ll_printer(a, 'a');
 	ll_printer(b, 'b');
 }
