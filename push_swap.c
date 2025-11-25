@@ -23,6 +23,7 @@ void	push_all_to_b(t_stack **a, t_stack **b, int len)
 		pb(b, a);
 }
 
+// median flag 0 means first half, 1 means later half
 void assign_pos(t_stack *b)
 {
 	int	i;
@@ -64,7 +65,9 @@ void assign_target(t_stack *a, t_stack *b)
 		target = 0;
 		while (a)
 		{
-			if ((target && (target->x > a->x && a->x > b->x)) || a->x > b->x)
+			if (target && (a->x < target->x && a->x > b->x))
+				target = a;
+			else if (!target && a->x > b->x)
 				target = a;
 			a = a->next;
 		}
@@ -116,9 +119,17 @@ t_stack	*find_cheapest(t_stack *b)
 void	find_cheapest_and_moveto_top(t_stack *a, t_stack *b)
 {
 	t_stack	*b_node;
+	int	pos;
 	b_node = find_cheapest(b);
 	printf("ugh, %d, cheapest is %d and its target %d\n", a->x, b_node->x, b_node->target->x);
-
+	ll_printer(b, 'b');
+	pos = b_node->pos;
+	if (b_node->median_flag)
+		while (pos--)
+			rrb(b);
+	else
+		while (pos--)
+			rb(b);
 }
 
 void	greater_sort(t_stack *a)

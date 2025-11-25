@@ -5,6 +5,8 @@ NAME		:= push_swap
 
 SRC		:= main.c \
 		   log_push_ops.c \
+		   log_rotate_ops.c \
+		   log_rrotate_ops.c \
 		   push_swap.c \
 		   tinysort.c \
 		   lst_ops.c \
