@@ -29,7 +29,7 @@ void assign_pos(t_stack *b)
 	int	i;
 	int	median;
 	int	flag;
-
+// if even number, might get last 2 pos being number 2
 	i = 0;
 	median = lstlen(b) / 2;
 	flag = 1;
@@ -108,12 +108,12 @@ t_stack	*find_cheapest(t_stack *b)
 					cheapest = b;
 		}
 		b = b->next;
-		// then come here and find 
+		// then come here and find assign_target(a, b
 		// the smallest b->pos + b->target->pos possible
 		// make sure to check if b->target->pos exists while doing this
 		// and return it
 	}
-	return (b);
+	return (cheapest);
 }
 
 void	find_cheapest_and_moveto_top(t_stack *a, t_stack *b)
@@ -122,27 +122,38 @@ void	find_cheapest_and_moveto_top(t_stack *a, t_stack *b)
 	int	pos;
 	b_node = find_cheapest(b);
 	printf("ugh, %d, cheapest is %d and its target %d\n", a->x, b_node->x, b_node->target->x);
-	ll_printer(b, 'b');
 	pos = b_node->pos;
+	printf("cheapest's pos is: %d\n", pos);
 	if (b_node->median_flag)
 		while (pos--)
 			rrb(b);
 	else
 		while (pos--)
 			rb(b);
+	pos = b_node->target->pos;
+	if (b_node->target->median_flag)
+		while (pos--)
+			rra(a);
+	else
+		while (pos--)
+			ra(a);
 }
 
 void	greater_sort(t_stack *a)
 {
 	t_stack *b = 0;
 	push_all_to_b(&a, &b, lstlen(a));
-	//while (lstlen(b) > 1)
-	//{
+	tiny_sort(&a);
+	while (lstlen(b) > 1)
+	{
 		assign_pos(a);
 		assign_pos(b);
 		assign_target(a, b);
+		ll_printer(a, 'a');
+		ll_printer(b, 'b');
 		find_cheapest_and_moveto_top(a, b);
-	//}
+		pa(&a, &b);
+	}
 	ll_printer(a, 'a');
 	ll_printer(b, 'b');
 }
