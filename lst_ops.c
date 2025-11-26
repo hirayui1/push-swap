@@ -58,6 +58,20 @@ t_stack	*find_highest(t_stack *a)
 	return (highest);
 }
 
+t_stack *find_smallest(t_stack *a)
+{
+	t_stack	*smallest;
+
+	smallest = a;
+	while (a->next)
+	{
+		if (a->next->x < smallest->x)
+			smallest = a->next;
+		a = a->next;
+	}
+	return (smallest);
+}
+
 void	lstdestroy(t_stack *a)
 {
 	t_stack *tmp;

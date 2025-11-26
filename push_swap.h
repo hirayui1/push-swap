@@ -31,6 +31,7 @@ int	push_swap(t_stack *a);
 int	lstlen(t_stack *a);
 t_stack *lstnew(int content);
 t_stack	*find_highest(t_stack *a);
+t_stack	*find_smallest(t_stack *a);
 void	swap(t_stack *a);
 void	swap_both(t_stack *a, t_stack *b);
 void	push(t_stack **dst, t_stack **src);
