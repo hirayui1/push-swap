@@ -34,6 +34,8 @@ t_stack *lstnew(int content);
 t_stack	*find_highest(t_stack *a);
 t_stack	*find_smallest(t_stack *a);
 void	assign_pos(t_stack *b);
+void	assign_pos_even(t_stack *b);
+void	assign_pos_odd(t_stack *b);
 void	assign_target(t_stack *a, t_stack *b);
 void	push_all_to_b(t_stack **a, t_stack **b, int len);
 void	swap(t_stack *a);
