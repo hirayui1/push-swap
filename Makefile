@@ -8,6 +8,7 @@ SRC		:= main.c \
 		   log_rotate_ops.c \
 		   log_rrotate_ops.c \
 		   log_swap_ops.c \
+		   assign_ops.c \
 		   push_swap.c \
 		   tinysort.c \
 		   lst_ops.c \

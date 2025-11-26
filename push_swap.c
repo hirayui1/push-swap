@@ -15,73 +15,19 @@ void    ll_printer(t_stack *next, char c)
         }
 }
 
-void	push_all_to_b(t_stack **a, t_stack **b, int len)
+void	move_smallest_totop(t_stack *a)
 {
-	//ll_printer(*a, 'a');
-	//printf("len: %d\n", len);
-	while (len-- > 3)
-		pb(b, a);
-}
+	t_stack	*smallest;
+	int	pos;
 
-// median flag 0 means first half, 1 means later half
-void assign_pos(t_stack *b)
-{
-	t_stack	*last;
-	int	i;
-	int	median;
-	int	flag;
-// if even number, might get last 2 pos being number 2
-// currently the only issue stems from this calculating the very last node's value wrong, it should ALWAYS be 1
-	i = 0;
-	median = lstlen(b) / 2;
-	flag = 1;
-	last = b;
-	while (b)
-	{
-		if (i > median)
-			flag = 0;
-		if (flag)
-		{
-			b->median_flag = 0;
-			b->pos = i;
-			i++;
-		}
-		else
-		{
-			b->median_flag = 1;
-			i--;
-			b->pos = i;
-		}
-		b = b->next;
-	}
-	if (lstlen(last) == 1)
-		return ;
-	while (last->next)
-		last = last->next;
-	last->pos = 1;
-}
-
-void assign_target(t_stack *a, t_stack *b)
-{
-	t_stack	*target;
-	t_stack	*tmp;
-
-	tmp = a;
-	while (b)
-	{
-		a = tmp;
-		target = 0;
-		while (a)
-		{
-			if (target && (a->x < target->x && a->x > b->x))
-				target = a;
-			else if (!target && a->x > b->x)
-				target = a;
-			a = a->next;
-		}
-		b->target = target;
-		b = b->next;
-	}
+	smallest = find_smallest(a);
+	pos = smallest->pos;
+	if (a->median_flag)
+		while (pos--)
+			rra(a);
+	else
+		while (pos--)
+			ra(a);
 }
 
 t_stack	*find_cheapest(t_stack *b)
@@ -117,14 +63,15 @@ t_stack	*find_cheapest(t_stack *b)
 	}
 	return (cheapest);
 }
-
 void	find_cheapest_and_moveto_top(t_stack *a, t_stack *b)
 {
 	t_stack	*b_node;
 	int	pos;
 	b_node = find_cheapest(b);	
 	pos = b_node->pos;
-	printf("cheapest's pos is: %d\n", pos);
+	printf("cheapest: %d, pos: %d\n", b_node->x, pos);
+	if (!b_node->target)
+		move_smallest_totop(a);
 	if (b_node->median_flag)
 		while (pos--)
 			rrb(b);
@@ -143,20 +90,6 @@ void	find_cheapest_and_moveto_top(t_stack *a, t_stack *b)
 	}
 }
 
-void	move_smallest_totop(t_stack *a)
-{
-	t_stack	*smallest;
-	int	pos;
-
-	smallest = find_smallest(a);
-	pos = smallest->pos;
-	if (a->median_flag)
-		while (pos--)
-			rra(a);
-	else
-		while (pos--)
-			ra(a);
-}
 void	greater_sort(t_stack *a)
 {
 	t_stack *b = 0;
@@ -171,8 +104,6 @@ void	greater_sort(t_stack *a)
 		ll_printer(b, 'b');
 		find_cheapest_and_moveto_top(a, b);
 		pa(&a, &b);
-		ll_printer(a, 'a');
-		ll_printer(b, 'b');
 	}
 	if (a->x > a->next->x)
 		sa(a);
@@ -180,8 +111,6 @@ void	greater_sort(t_stack *a)
 	assign_pos(b);
 	assign_target(a, b);
 	find_cheapest_and_moveto_top(a, b);
-	assign_pos(a);
-	move_smallest_totop(a);
 	pa(&a, &b);
 	ll_printer(a, 'a');
 	ll_printer(b, 'b');
@@ -196,41 +125,3 @@ int	push_swap(t_stack *a)
 		greater_sort(a);
 	return (0);
 }
-
-/*
-int	test_rules(t_stack *a)
-{
-	t_stack	*b;
-	b = 0;
-	ll_printer(a, 'a');
-	swap(a);
-	printf("swap:\n");
-	ll_printer(a, 'a');
-	printf("push:\n");
-	push(&b, &a);
-	ll_printer(a, 'a');
-	ll_printer(b, 'b');
-	printf("add to end:\n");
-	lstadd_last(&a, 9);
-	lstadd_last(&b, 8);
-	ll_printer(a, 'a');
-	ll_printer(b, 'b');
-	printf("rotate:\n");
-	rotate(a);
-	ll_printer(a, 'a');
-	printf("reverse rotate:\n");
-	reverse_rotate(a);
-	ll_printer(a, 'a');
-	printf("rotate both:\n");
-	rotate_both(a, b);
-	ll_printer(a, 'a');
-	ll_printer(b, 'b');
-	printf("reverse rotate both:\n");
-	reverse_rotate_both(a, b);
-	ll_printer(a, 'a');
-	ll_printer(b, 'b');
-	lstdestroy(a);
-	lstdestroy(b);
-	return (1);
-}
-*/
