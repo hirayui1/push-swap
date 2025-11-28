@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+long	ft_atoi(const char *nptr)
 {
 	long	n;
 	int		sign;
@@ -33,5 +33,5 @@ int	ft_atoi(const char *nptr)
 	}
 	while (nptr[i] && nptr[i] >= '0' && nptr[i] <= '9')
 		n = (n * 10) + (nptr[i++] - '0');
-	return ((int)(n * sign));
+	return ((long)(n * sign));
 }
