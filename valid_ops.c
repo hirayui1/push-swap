@@ -1,13 +1,22 @@
 #include "push_swap.h"
+#include <stdio.h>
 
 int	validate_input(char *argv)
 {
+	int	len;
 	int	j;
 
 	j = 0;
+	len = ft_strlen(argv);
 	while (argv[j])
 	{
 		if (argv[j] != '-' && !ft_isdigit(argv[j]))
+		{
+			write(2, "Error\n", 6);
+			return (0);
+		}
+		else if (argv[j] == '-' && (j >= len 
+					|| !ft_isdigit(argv[j + 1])))
 		{
 			write(2, "Error\n", 6);
 			return (0);
