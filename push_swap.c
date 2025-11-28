@@ -89,24 +89,25 @@ void	last_iteration(t_stack **a, t_stack **b)
 		pa(a, b);
 		rra(*a);
 	}
+	if (*b)
+		lstdestroy(*b);
 }
 
-void	greater_sort(t_stack *a)
+void	greater_sort(t_stack **a)
 {
 	t_stack *b = 0;
-	push_all_to_b(&a, &b, lstlen(a));
-	tiny_sort(&a);
+	push_all_to_b(a, &b, lstlen(*a));
+	tiny_sort(a);
 	while (lstlen(b) > 1)
 	{
-		assign_pos(a);
+		assign_pos(*a);
 		assign_pos(b);
-		assign_target(a, b);
-		find_cheapest_and_moveto_top(a, b);
-		pa(&a, &b);
+		assign_target(*a, b);
+		find_cheapest_and_moveto_top(*a, b);
+		pa(a, &b);
 	}
-	last_iteration(&a, &b);
-	move_smallest_totop(a);
-	lstdestroy(b);
+	last_iteration(a, &b);
+	move_smallest_totop(*a);
 	b = 0;
 }
 
@@ -119,7 +120,7 @@ int	push_swap(t_stack *a)
 	if (lstlen(a) <= 3)
 		tiny_sort(&a);
 	else
-		greater_sort(a);
+		greater_sort(&a);
 	lstdestroy(a);
 	return (0);
 }
