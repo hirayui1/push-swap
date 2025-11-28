@@ -16,20 +16,20 @@ int	validate_input(char *argv)
 	return (1);
 }
 
-t_stack	*fill_stack(char **argv)
+t_stack	*fill_stack(char **argv, int j)
 {
 	t_stack *lst;
 	t_stack *next;
 	int	i;
 
-	lst = lstnew((int)ft_atoi(argv[1]));
+	lst = lstnew((int)ft_atoi(argv[j]));
 	if (!lst)
 		return (0);
 	next = lst;
 	i = 2;
 	while (argv[i])
 	{
-		next->next = lstnew(atoi(argv[i++]));
+		next->next = lstnew(ft_atoi(argv[i++]));
 		if (!next->next)
 		{
 			lstdestroy(lst);
@@ -100,6 +100,17 @@ int	is_sorted(char **argv, int i)
 	return (0);
 }
 
+static void	ft_free(char **result)
+{
+        int     i;
+
+        i = 0;
+        while (result[i])
+                free(result[i++]);
+	free(result[i]);
+        free(result);
+}
+
 int	main(int argc, char **argv)
 {
 	int	i;
@@ -115,6 +126,7 @@ int	main(int argc, char **argv)
 				return (0);
 		if (!is_sorted(argv, 1))
 			return (0);
+		push_swap(fill_stack(argv, 1));
 	}
 	else
 	{
@@ -122,16 +134,16 @@ int	main(int argc, char **argv)
 		res = ft_split(argv[1], ' ');
 		if (!validate_input(res[i]))
 		{
-			free(res);
+			ft_free(res);
 			return (0);
 		}
 		if (!is_sorted(res, 0))
 		{
-			free(res);
+			ft_free(res);
 			return (0);
 		}
-		free(res);
+		push_swap(fill_stack(res, 0));
+		ft_free(res);
 	}
-	push_swap(fill_stack(argv));
 	return (0);
 }
