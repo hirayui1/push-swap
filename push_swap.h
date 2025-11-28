@@ -2,7 +2,7 @@
 # define PUSH_SWAP_H
 
 # include "libft/libft.h"
-# include <stdio.h>
+# include <limits.h>
 
 typedef struct	s_stack {
 	struct s_stack	*next;
@@ -11,6 +11,9 @@ typedef struct	s_stack {
 	int	pos;
 	int	x;
 }		t_stack;
+
+// REMOVE THIS BEFORE FINISHING
+void	ll_printer(t_stack *next, char c);
 
 // Push Operations
 void	pa(t_stack **a, t_stack **b);

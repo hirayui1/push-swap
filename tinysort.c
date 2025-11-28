@@ -6,9 +6,9 @@ void	tiny_sort(t_stack **a)
 
 	highest = find_highest(*a);
 	if (*a == highest)
-		rotate(*a);
+		ra(*a);
 	else if ((*a)->next == highest)
-		reverse_rotate(*a);
+		rra(*a);
 	if ((*a)->x > (*a)->next->x)
-		swap(*a);
+		sa(*a);
 }

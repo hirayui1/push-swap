@@ -9,7 +9,7 @@ void	pa(t_stack **a, t_stack **b)
 void	pb(t_stack **b, t_stack **a)
 {
 	push(b, a);
-	write(1, "pa\n", 3);
+	write(1, "pb\n", 3);
 }
 
 void	push_all_to_b(t_stack **a, t_stack **b, int len)
