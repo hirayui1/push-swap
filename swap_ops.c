@@ -3,7 +3,7 @@
 void	swap(t_stack *a)
 {
 	t_stack	*next;
-	int	tmp;
+	int		tmp;
 
 	if (!a->next)
 		return ;

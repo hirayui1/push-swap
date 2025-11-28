@@ -1,26 +1,11 @@
 #include "push_swap.h"
-int	validate_input(char *argv)
-{
-	int	j;
-
-	j = 0;
-	while(argv[j])
-	{
-		if (argv[j] != '-' && !ft_isdigit(argv[j]))
-		{
-			write(2, "Error\n", 6);
-			return (0);
-		}
-		j++;
-	}
-	return (1);
-}
+#include <stdio.h>
 
 t_stack	*fill_stack(char **argv, int j)
 {
-	t_stack *lst;
-	t_stack *next;
-	int	i;
+	t_stack	*lst;
+	t_stack	*next;
+	int		i;
 
 	lst = lstnew((int)ft_atoi(argv[j]));
 	if (!lst)
@@ -40,108 +25,68 @@ t_stack	*fill_stack(char **argv, int j)
 	return (lst);
 }
 
-int	is_dup(char **argv, int i)
-{
-	long	curr;
-	int	j;
-
-	while (argv[i])
-	{
-		curr = ft_atoi(argv[i]);
-		j = i + 1;
-		while (argv[j])
-		{
-			if (ft_atoi(argv[j]) == curr)
-			{
-				write(2, "Error\n", 6);
-				return (0);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	is_minmax(char **argv, int i)
-{
-	long	curr;
-
-	while (argv[i])
-	{
-		curr = ft_atoi(argv[i]);
-		if (curr > INT_MAX || curr < INT_MIN)
-		{
-			write(2, "Error\n", 6);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	is_sorted(char **argv, int i)
-{
-	int	last;
-	int	curr;
-
-
-	if (is_minmax(argv, i) || is_dup(argv, i))
-		return (0);
-	last = ft_atoi(argv[i]);
-	while (argv[++i])
-	{
-		curr = ft_atoi(argv[i]);
-		if (curr < last)
-			return (1);
-		else
-			last = curr;
-	}
-	return (0);
-}
-
 static void	ft_free(char **result)
 {
-        int     i;
+	int	i;
 
-        i = 0;
-        while (result[i])
-                free(result[i++]);
+	i = 0;
+	while (result[i])
+		free(result[i++]);
 	free(result[i]);
-        free(result);
+	free(result);
+}
+
+int	run_validation_checks(char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (argv[i])
+		if (!validate_input(argv[i++]))
+			return (0);
+	if (!is_sorted(argv, 1))
+		return (0);
+	return (1);
+}
+
+int	run_validation_checks2(char **res)
+{
+	int	i;
+
+	i = 0;
+	while (res[i])
+	{
+		if (!validate_input(res[i++]))
+		{
+			ft_free(res);
+			return (0);
+		}
+	}
+	if (!is_sorted(res, 0))
+	{
+		ft_free(res);
+		return (0);
+	}
+	return (1);
 }
 
 int	main(int argc, char **argv)
 {
-	int	i;
 	char	**res;
 
 	if (argc == 1)
 		return (0);
 	else if (argc > 2)
 	{
-		i = 1;
-		while (argv[i])
-			if (!validate_input(argv[i++]))
-				return (0);
-		if (!is_sorted(argv, 1))
+		if (!run_validation_checks(argv))
 			return (0);
 		push_swap(fill_stack(argv, 1));
 	}
 	else
 	{
-		i = 0;
 		res = ft_split(argv[1], ' ');
-		if (!validate_input(res[i]))
-		{
-			ft_free(res);
+		if (!run_validation_checks2(res))
 			return (0);
-		}
-		if (!is_sorted(res, 0))
-		{
-			ft_free(res);
-			return (0);
-		}
 		push_swap(fill_stack(res, 0));
 		ft_free(res);
 	}

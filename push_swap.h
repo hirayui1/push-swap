@@ -1,15 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkarabab <bkarabab@student.42warsaw.p      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/28 19:18:27 by bkarabab          #+#    #+#             */
+/*   Updated: 2025/11/28 19:53:03 by bkarabab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
 # include "libft/libft.h"
 # include <limits.h>
 
-typedef struct	s_stack {
+typedef struct s_stack
+{
 	struct s_stack	*next;
 	struct s_stack	*target;
-	int	median_flag;
-	int	pos;
-	int	x;
+	int				median_flag;
+	int				pos;
+	int				x;
 }		t_stack;
 
 // REMOVE THIS BEFORE FINISHING
@@ -31,9 +44,15 @@ void	rra(t_stack *a);
 void	rrb(t_stack *b);
 void	rrr(t_stack *a, t_stack *b);
 
-int	push_swap(t_stack *a);
-int	lstlen(t_stack *a);
-t_stack *lstnew(int content);
+// Validation Operations
+int		validate_input(char *argv);
+int		is_dup(char **argv, int i);
+int		is_minmax(char **argv, int i);
+int		is_sorted(char **argv, int i);
+
+int		push_swap(t_stack *a);
+int		lstlen(t_stack *a);
+t_stack	*lstnew(int content);
 t_stack	*find_highest(t_stack *a);
 t_stack	*find_smallest(t_stack *a);
 void	assign_pos(t_stack *b);

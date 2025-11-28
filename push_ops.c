@@ -1,7 +1,9 @@
 #include "push_swap.h"
+
 void	push(t_stack **dst, t_stack **src)
 {
 	t_stack	*tmp;
+
 	if (*src)
 	{
 		tmp = lstnew((*src)->x);
@@ -18,6 +20,5 @@ void	push(t_stack **dst, t_stack **src)
 			free(*src);
 			*src = 0;
 		}
-		
 	}
 }

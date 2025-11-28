@@ -29,7 +29,7 @@ void	reverse_rotate(t_stack *a)
 {
 	int	tmp;
 
-	if (!a->next) // handles list having only 1 element
+	if (!a->next)
 		return ;
 	recursive_rotate(0, a, &tmp);
 	a->x = tmp;

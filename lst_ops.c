@@ -60,8 +60,9 @@ t_stack	*find_highest(t_stack *a)
 
 void	lstdestroy(t_stack *a)
 {
-	t_stack *tmp;
-	while(a)
+	t_stack	*tmp;
+
+	while (a)
 	{
 		tmp = a->next;
 		free(a);

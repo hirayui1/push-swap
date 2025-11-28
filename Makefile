@@ -15,7 +15,8 @@ SRC		:= main.c \
 		   lst_ops2.c \
 		   swap_ops.c \
 		   push_ops.c \
-		   rot_ops.c
+		   rot_ops.c \
+		   valid_ops.c
 
 LIBFT_DIR	:= libft
 LIBFT		:= $(LIBFT_DIR)/libft.a

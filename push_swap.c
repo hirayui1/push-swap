@@ -3,7 +3,7 @@
 void	move_smallest_totop(t_stack *a)
 {
 	t_stack	*smallest;
-	int	pos;
+	int		pos;
 
 	smallest = find_smallest(a);
 	assign_pos(a);
@@ -26,14 +26,14 @@ t_stack	*find_cheapest(t_stack *b)
 		if (b->target)
 		{
 			if (cheapest->target && b->pos + b->target->pos < cheapest->pos + cheapest->target->pos)
-					cheapest = b;
+				cheapest = b;
 			else if (b->pos + b->target->pos < cheapest->pos)
 				cheapest = b;
 		}
 		else
 		{
 			if (cheapest->target && b->pos < cheapest->pos + cheapest->target->pos)
-					cheapest = b;
+				cheapest = b;
 			else if (b->pos < cheapest->pos)
 				cheapest = b;
 		}
@@ -45,7 +45,7 @@ t_stack	*find_cheapest(t_stack *b)
 void	find_cheapest_and_moveto_top(t_stack *a, t_stack *b)
 {
 	t_stack	*b_node;
-	int	pos;
+	int		pos;
 
 	b_node = find_cheapest(b);
 	if (!b_node->target)
@@ -95,7 +95,9 @@ void	last_iteration(t_stack **a, t_stack **b)
 
 void	greater_sort(t_stack **a)
 {
-	t_stack *b = 0;
+	t_stack	*b;
+
+	b = 0;
 	push_all_to_b(a, &b, lstlen(*a));
 	tiny_sort(a);
 	while (lstlen(b) > 1)
