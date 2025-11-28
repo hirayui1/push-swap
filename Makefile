@@ -12,6 +12,7 @@ SRC		:= main.c \
 		   push_swap.c \
 		   tinysort.c \
 		   lst_ops.c \
+		   lst_ops2.c \
 		   swap_ops.c \
 		   push_ops.c \
 		   rot_ops.c
@@ -21,6 +22,6 @@ LIBFT		:= $(LIBFT_DIR)/libft.a
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(SRC)
 	$(MAKE) -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(SRC) $(LIBFT)
+	$(CC) $(CFLAGS) $(SRC) $(LIBFT) -o $(NAME)
