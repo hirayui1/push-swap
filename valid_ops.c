@@ -15,8 +15,8 @@ int	validate_input(char *argv)
 			write(2, "Error\n", 6);
 			return (0);
 		}
-		else if (argv[j] == '-' && (j >= len 
-					|| !ft_isdigit(argv[j + 1])))
+		else if (argv[j] == '-' && (j >= len
+				|| !ft_isdigit(argv[j + 1])))
 		{
 			write(2, "Error\n", 6);
 			return (0);

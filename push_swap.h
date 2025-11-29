@@ -55,6 +55,7 @@ int		lstlen(t_stack *a);
 t_stack	*lstnew(int content);
 t_stack	*find_highest(t_stack *a);
 t_stack	*find_smallest(t_stack *a);
+t_stack	*find_cheapest(t_stack *b);
 void	assign_pos(t_stack *b);
 void	assign_pos_even(t_stack *b);
 void	assign_pos_odd(t_stack *b);

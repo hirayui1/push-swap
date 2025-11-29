@@ -13,3 +13,31 @@ t_stack	*find_smallest(t_stack *a)
 	}
 	return (smallest);
 }
+
+t_stack	*find_cheapest(t_stack *b)
+{
+	t_stack	*cheapest;
+
+	cheapest = b;
+	while (b->next)
+	{
+		if (b->target)
+		{
+			if (cheapest->target && b->pos + b->target->pos
+				< cheapest->pos + cheapest->target->pos)
+				cheapest = b;
+			else if (b->pos + b->target->pos < cheapest->pos)
+				cheapest = b;
+		}
+		else
+		{
+			if (cheapest->target && b->pos
+				< cheapest->pos + cheapest->targaet->pos)
+				cheapest = b;
+			else if (b->pos < cheapest->pos)
+				cheapest = b;
+		}
+		b = b->next;
+	}
+	return (cheapest);
+}

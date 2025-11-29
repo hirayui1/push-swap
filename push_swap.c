@@ -16,32 +16,6 @@ void	move_smallest_totop(t_stack *a)
 			ra(a);
 }
 
-t_stack	*find_cheapest(t_stack *b)
-{
-	t_stack	*cheapest;
-
-	cheapest = b;
-	while (b->next)
-	{
-		if (b->target)
-		{
-			if (cheapest->target && b->pos + b->target->pos < cheapest->pos + cheapest->target->pos)
-				cheapest = b;
-			else if (b->pos + b->target->pos < cheapest->pos)
-				cheapest = b;
-		}
-		else
-		{
-			if (cheapest->target && b->pos < cheapest->pos + cheapest->target->pos)
-				cheapest = b;
-			else if (b->pos < cheapest->pos)
-				cheapest = b;
-		}
-		b = b->next;
-	}
-	return (cheapest);
-}
-
 void	find_cheapest_and_moveto_top(t_stack *a, t_stack *b)
 {
 	t_stack	*b_node;
