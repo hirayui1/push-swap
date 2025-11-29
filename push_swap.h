@@ -25,9 +25,6 @@ typedef struct s_stack
 	int				x;
 }		t_stack;
 
-// REMOVE THIS BEFORE FINISHING
-void	ll_printer(t_stack *next, char c);
-
 // Push Operations
 void	pa(t_stack **a, t_stack **b);
 void	pb(t_stack **b, t_stack **a);

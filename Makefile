@@ -18,6 +18,7 @@ SRC		:= main.c \
 		   rot_ops.c \
 		   valid_ops.c
 
+OBJS		:= $(SRC:.c=.o)
 LIBFT_DIR	:= libft
 LIBFT		:= $(LIBFT_DIR)/libft.a
 
@@ -26,3 +27,13 @@ all: $(NAME)
 $(NAME): $(SRC)
 	$(MAKE) -C $(LIBFT_DIR)
 	$(CC) $(CFLAGS) $(SRC) $(LIBFT) -o $(NAME)
+
+clean:
+	rm -f $(OBJS)
+
+fclean:
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

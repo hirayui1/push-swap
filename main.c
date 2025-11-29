@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkarabab <bkarabab@student.42warsaw.p      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 20:45:01 by bkarabab          #+#    #+#             */
+/*   Updated: 2025/11/29 20:45:02 by bkarabab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
-#include <stdio.h>
 
 t_stack	*fill_stack(char **argv, int j)
 {
@@ -11,7 +22,7 @@ t_stack	*fill_stack(char **argv, int j)
 	if (!lst)
 		return (0);
 	next = lst;
-	i = 2;
+	i = j + 1;
 	while (argv[i])
 	{
 		next->next = lstnew(ft_atoi(argv[i++]));
