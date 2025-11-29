@@ -6,21 +6,27 @@ void	assign_pos(t_stack *b)
 
 	len = lstlen(b);
 	if (len % 2 == 0)
-		assign_pos_even(b);
+		assign_pos_even(b, 0, (lstlen(b) / 2), 1);
 	else
-		assign_pos_odd(b);
+		assign_pos_odd(b, 0, (lstlen(b) / 2), 2);
 }
 
-void	assign_pos_odd(t_stack *b)
+void	assign_last_node_pos(t_stack *b)
 {
 	t_stack	*last;
-	int		i;
-	int		median;
-	int		flag;
 
-	i = 0;
-	median = lstlen(b) / 2;
-	flag = 2;
+	last = b;
+	if (lstlen(last) == 1)
+		return ;
+	while (last->next)
+		last = last->next;
+	last->pos = 1;
+}
+
+void	assign_pos_odd(t_stack *b, int i, int median, int flag)
+{
+	t_stack	*last;
+
 	last = b;
 	while (b)
 	{
@@ -42,23 +48,13 @@ void	assign_pos_odd(t_stack *b)
 		}
 		b = b->next;
 	}
-	if (lstlen(last) == 1)
-		return ;
-	while (last->next)
-		last = last->next;
-	last->pos = 1;
+	assign_last_node_pos(last);
 }
 
-void	assign_pos_even(t_stack *b)
+void	assign_pos_even(t_stack *b, int i, int median, int flag)
 {
 	t_stack	*last;
-	int		i;
-	int		median;
-	int		flag;
 
-	i = 0;
-	median = lstlen(b) / 2;
-	flag = 1;
 	last = b;
 	while (b)
 	{
@@ -78,11 +74,7 @@ void	assign_pos_even(t_stack *b)
 		}
 		b = b->next;
 	}
-	if (lstlen(last) == 1)
-		return ;
-	while (last->next)
-		last = last->next;
-	last->pos = 1;
+	assign_last_node_pos(last);
 }
 
 void	assign_target(t_stack *a, t_stack *b)

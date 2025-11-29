@@ -32,7 +32,7 @@ t_stack	*find_cheapest(t_stack *b)
 		else
 		{
 			if (cheapest->target && b->pos
-				< cheapest->pos + cheapest->targaet->pos)
+				< cheapest->pos + cheapest->target->pos)
 				cheapest = b;
 			else if (b->pos < cheapest->pos)
 				cheapest = b;
