@@ -51,7 +51,7 @@ int	is_dup(char **argv, int i)
 			if (ft_atoi(argv[j]) == curr)
 			{
 				write(2, "Error\n", 6);
-				return (0);
+				return (1);
 			}
 			j++;
 		}
